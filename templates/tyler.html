@@ -29,6 +29,8 @@
 						<th>Level</th>
 						<th>Rank</th>
 						<th>LP</th>
+						<th>Wins</th>
+						<th>Losses</th>
 					</tr>
 
 
@@ -40,6 +42,9 @@
 							{% if t1.rank != None %}
 							<td>{{t1.rank.tier}} {{t1.rank.rank}}</td>
 							<td>{{t1.rank.leaguePoints}}</td>
+							<td>{{t1.rank.wins}}</td>
+							<td>{{t1.rank.losses}}</td>
+
 							{% else %}
 							<td>Unranked</td>
 							<td>N/A</td>
@@ -54,6 +59,8 @@
 						<th>Level</th>
 						<th>Rank</th>
 						<th>LP</th>
+						<th>Wins</th>
+						<th>Losses</th>
 					</tr>
 
 
@@ -65,6 +72,8 @@
 							{% if moe.rank != None %}
 							<td>{{moe.rank.tier}} {{moe.rank.rank}}</td>
 							<td>{{moe.rank.leaguePoints}}</td>
+							<td>{{moe.rank.wins}}</td>
+							<td>{{moe.rank.losses}}</td>
 							{% else %}
 							<td>Unranked</td>
 							<td>N/A</td>

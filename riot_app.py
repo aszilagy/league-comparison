@@ -175,7 +175,7 @@ def jprint(jsonD):
     '''
     Parameters: Request ... myReq  [Returned from requests.get]
     '''
-    jData = json.loads(jsonD.content)
+    jData = json.loads(jsonD.content.decode('utf-8'))
     print(jData)
 
 def get_summoner_rank(summoner_id: str):
@@ -223,7 +223,7 @@ def get_summoner_by_name(summoner_name, justId = False):
 def json_to_rank(jsonD):
     rankList = []
     rankOrder = ['IRON', 'BRONZE', 'SILVER','GOLD','PLATINUM','DIAMOND','MASTER','GRANDMASTER','CHALLENGER']
-    jList = json.loads(jsonD.content)
+    jList = json.loads(jsonD.content.decode('utf-8'))
 
     if len(jList) == 0:
         #They are unranked
@@ -257,7 +257,7 @@ def json_to_rank(jsonD):
     return rankList
 
 def json_to_summoner(jsonD):
-    jData = json.loads(jsonD.content)
+    jData = json.loads(jsonD.content.decode('utf-8'))
     sumObj = Summoner(jData['profileIconId'], 
             jData['name'],
             jData['puuid'],
