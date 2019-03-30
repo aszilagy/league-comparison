@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/style.css">
+		<title>Tyler vs Moe</title>
+		<div class="navbar">
+			<a class="active" href="">Home</a>
+		</div>
+	</head>
+
+	<body onload=loadPage()>
+		<div class="full">
+			<div class="container head">
+				<p>Tyler1 vs Moe</p>
+			</div>
+		</div>
+
+		<div class="container cont outer">
+			<div class="container cont inner">
+				<p id="tournId">Currently Ahead: MOE</p>
+
+				<table>
+					<tr>
+						<th>Streamer</th>
+						<th>Summoner Name</th>
+						<th>Level</th>
+						<th>Rank</th>
+						<th>LP</th>
+					</tr>
+
+
+					<tr id="row">
+						<tr>
+							<td id="moe-header"><b>Tyler</b></td>
+							<td>{{t1.name}}</td>
+							<td>{{t1.level}}</td>
+							{% if t1.rank != None %}
+							<td>{{t1.rank.tier}} {{t1.rank.rank}}</td>
+							<td>{{t1.rank.leaguePoints}}</td>
+							{% else %}
+							<td>Unranked</td>
+							<td>N/A</td>
+							{% endif %}
+						</tr>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<th>Streamer</th>
+						<th>Summoner Name</th>
+						<th>Level</th>
+						<th>Rank</th>
+						<th>LP</th>
+					</tr>
+
+
+					<tr id="row">
+						<tr>
+							<td id="moe-header"><b>Moe</b></td>
+							<td>{{moe.name}}</td>
+							<td>{{moe.level}}</td>
+							{% if moe.rank != None %}
+							<td>{{moe.rank.tier}} {{moe.rank.rank}}</td>
+							<td>{{moe.rank.leaguePoints}}</td>
+							{% else %}
+							<td>Unranked</td>
+							<td>N/A</td>
+							{% endif %}
+						</tr>
+					</tr>
+
+				</table>
+
+			</div>
+		</div>
+
+
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p>Some text in the Modal..</p>
+			</div>
+		</div>
+
+		<script>
+			//Use this for settings changes
+			var modal = document.getElementById('myModal');
+var btn = document.getElementById('bt');
+var span = document.getElementsByClassName('close')[0];
+
+btn.onclick = function(){
+	modal.style.display = "block";
+}
+
+span.onclick = function(){
+	modal.style.display = "none";
+}
+
+		</script>
+
+	</body>
+
+</html>
