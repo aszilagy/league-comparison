@@ -29,7 +29,7 @@
 				<h2>{{summoner1.name}}</h2>
 				<p>{{summoner1.rank.tier}} {{summoner1.rank.rank}} - {{summoner1.rank.leaguePoints}} LP</p>
 			</div>
-			<div class="centerLines">
+			<div class="centerLines centerLinesLeft">
 				<p>Win Rate</p>
 				<div id="summoner1Win"></div>
 
@@ -54,7 +54,7 @@
 				<h2>{{summoner2.name}}</h2>
 				<p>{{summoner2.rank.tier}} {{summoner2.rank.rank}} - {{summoner2.rank.leaguePoints}} LP</p>
 			</div>
-			<div class="centerLines">
+			<div class="centerLines centerLinesRight">
 				<p>Win Rate</p>
 				<div id="summoner2Win"></div>
 
@@ -73,7 +73,7 @@
 		</script>
 
 		<script>
-			function makeBar(containerName, transformPer, percentage){
+			function makeBar(containerName, transformPer, percentage, whichSide){
 				var bar = new ProgressBar.Line(containerName, {
 					strokeWidth: 4,
 					easing: 'easeInOut',
@@ -86,7 +86,7 @@
 						style: {
 							color: '#FFFFFF',
 							position: 'absolute',
-							left: '90%',
+							whichSide: '90%',
 							padding: 0,
 							margin: 0,
 							transform: null
@@ -100,10 +100,10 @@
 					}
 				}); bar.animate(percentage);  // Number from 0.0 to 1.0
 			}
-                        makeBar(summoner1Win, "scale(-1, 1)", .46)
-                        makeBar(summoner1Loss, "scale(-1, 1)", .54)
-                        makeBar(summoner2Win, "scale(1, 1)", .47)
-                        makeBar(summoner2Loss, "scale(1, 1)", .68)
+                        makeBar(summoner1Win, "scale(-1, 1)", .46, 'left')
+                        makeBar(summoner1Loss, "scale(-1, 1)", .54, 'left')
+                        makeBar(summoner2Win, "scale(1, 1)", .47, 'right')
+                        makeBar(summoner2Loss, "scale(1, 1)", .68, 'right')
 		</script>
 	</body>
 

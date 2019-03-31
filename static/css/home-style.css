@@ -3,15 +3,28 @@
 	margin-left: 110%;
 }
 
-.centerLines p{
+.centerLinesLeft p{
 	color: white;
 	margin-right: 5%;
 	float: right;
 	margin-bottom: 0px;
+}
+
+.centerLinesRight p{
+	color: white;
+	margin-left: 5%;
+	float: left;
+	margin-bottom: 0px;
+}
+
+.centerLinesRight{
+	position: relative;
+	float: left;
+	z-index: 2;
 
 }
 
-.centerLines{
+.centerLinesLeft{
 	position: relative;
 	float: right;
 	z-index: 2;
@@ -20,6 +33,7 @@
 
 .centerLines div{
 	margin-right: 20px;
+	margin-left: 20px;
 	width: 400px;
 	height: 8px;
 	position: relative;
