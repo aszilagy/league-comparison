@@ -7,22 +7,27 @@
 		<link rel="stylesheet" href="/static/css/home-style.css">
 		<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
 		<title>Home</title>
-		<div class="navbar">
-			<a class="active" href="">Home</a>
-		</div>
 	</head>
 
 	<body onload=loadPage()>
-		<div class="split left">
-			<div class="topBar">
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputGroup-sizing-default">Summoner</span>
-					</div>
-					<input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-					<button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+		<div class="topBar">
+			<form action = "/summoners/" method = "POST">
+			<div class="form-row">
+				<div class="col">
+					<input name="summoner1_input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Summoner1">
+				</div>
+				<div class="col">
+					<input name="summoner2_input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Summoner2">
+
+				</div>
+				<div class="col">
+					<button class="btn btn-primary" type = "submit" value = "submit">Submit</button>
 				</div>
 			</div>
+			</form>
+		</div>
+
+		<div class="split left">
 
 			<div class="centered">
 				<img src="http://ddragon.leagueoflegends.com/cdn/9.6.1/img/profileicon/{{summoner1.icon}}.png" alt="Summoner_2_Icon">
@@ -40,15 +45,6 @@
 		</div>
 
 		<div class="split right">
-			<div class="topBar">
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputGroup-sizing-default">Summoner</span>
-					</div>
-					<input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-				</div>
-			</div>
-
 			<div class="centered">
 				<img src="http://ddragon.leagueoflegends.com/cdn/9.6.1/img/profileicon/{{summoner2.icon}}.png" alt="Summoner_2_Icon">
 				<h2>{{summoner2.name}}</h2>
@@ -100,20 +96,20 @@
 					}
 				}); bar.animate(percentage);  // Number from 0.0 to 1.0
 			}
-                        var s1Total = {{summoner1.rank.wins}} + {{summoner1.rank.losses}};
-                        var s2Total = {{summoner2.rank.wins}} + {{summoner2.rank.losses}};
-                        if(s1Total > s2Total){
-				s2Total = (s2Total / s1Total);
-				s1Total = 1;
-			}
-                        else{
-				s1Total = (s1Total / s2Total);
-				s2Total = 1
-			}
-                        makeBar(summoner1Win, "scale(-1, 1)", {{s1Wins}}, 'left');
-                        makeBar(summoner1Loss, "scale(-1, 1)", s1Total, 'left');
-                        makeBar(summoner2Win, "scale(1, 1)", {{s2Wins}}, 'right');
-                        makeBar(summoner2Loss, "scale(1, 1)", s2Total, 'right');
+var s1Total = {{summoner1.rank.wins}} + {{summoner1.rank.losses}};
+var s2Total = {{summoner2.rank.wins}} + {{summoner2.rank.losses}};
+if(s1Total > s2Total){
+	s2Total = (s2Total / s1Total);
+	s1Total = 1;
+}
+else{
+	s1Total = (s1Total / s2Total);
+	s2Total = 1
+}
+makeBar(summoner1Win, "scale(-1, 1)", {{s1Wins}}, 'left');
+makeBar(summoner1Loss, "scale(-1, 1)", s1Total, 'left');
+makeBar(summoner2Win, "scale(1, 1)", {{s2Wins}}, 'right');
+makeBar(summoner2Loss, "scale(1, 1)", s2Total, 'right');
 		</script>
 	</body>
 

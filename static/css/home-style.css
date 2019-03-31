@@ -1,3 +1,7 @@
+.col{
+	max-width: 24%;
+
+}
 #submitButton{
 	position: absolute;
 	margin-left: 110%;
@@ -43,6 +47,7 @@
 
 .topBar{
 	margin-left:5%;
+	margin-top: 20px;
 }
 
 .input-group.mb-3{
@@ -53,6 +58,7 @@
 body {
 	font-family: Arial;
 	color: white;
+	background-color: #25154d;
 }
 
 .split {
@@ -68,11 +74,16 @@ body {
 .left {
 	left: 0;
 	background-color: #111;
+	position: absolute;
+	margin-top: 75px;
 }
 
 .right {
 	right: 0;
-	background-color: #a20000
+	background-color: #a20000;
+	position: absolute;
+	margin-top: 75px;
+
 }
 
 .centered {

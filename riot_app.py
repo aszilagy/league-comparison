@@ -194,7 +194,7 @@ def get_summoner_rank(summoner_id: str):
 def get_summoner_by_id(summoner_id):
     url = 'https://na1.api.riotgames.com/lol/summoner/v4/summoners/'+ summoner_id + '?api_key='+api_key
     myReq = requests.get(url, verify=True)
-    jprint(myReq)
+    #jprint(myReq)
     if(myReq.ok):
         summonerObj = json_to_summoner(myReq)
         print("Getting summoner id for %s" % summonerObj.name)
@@ -209,7 +209,7 @@ def get_summoner_by_name(summoner_name, justId = False):
     print("Getting summoner object by name: %s" % summoner_name)
     url = 'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+ summoner_name + '?api_key='+api_key
     myReq = requests.get(url, verify=True)
-    jprint(myReq)
+    #jprint(myReq)
     if(myReq.ok):
         summonerObj = json_to_summoner(myReq)
         if justId == True:
