@@ -33,7 +33,7 @@
 				<p>Win Rate</p>
 				<div id="summoner1Win"></div>
 
-				<p>Loss Rate</p>
+				<p>Games Played - {{summoner1.gamesPlayed}}</p>
 				<div id="summoner1Loss"></div>
 			</div>
 
@@ -58,7 +58,7 @@
 				<p>Win Rate</p>
 				<div id="summoner2Win"></div>
 
-				<p>Loss Rate</p>
+				<p>Games Played - {{summoner2.gamesPlayed}}</p>
 				<div id="summoner2Loss"></div>
 			</div>
 
@@ -100,10 +100,20 @@
 					}
 				}); bar.animate(percentage);  // Number from 0.0 to 1.0
 			}
-                        makeBar(summoner1Win, "scale(-1, 1)", .46, 'left')
-                        makeBar(summoner1Loss, "scale(-1, 1)", .54, 'left')
-                        makeBar(summoner2Win, "scale(1, 1)", .47, 'right')
-                        makeBar(summoner2Loss, "scale(1, 1)", .68, 'right')
+                        var s1Total = {{summoner1.rank.wins}} + {{summoner1.rank.losses}};
+                        var s2Total = {{summoner2.rank.wins}} + {{summoner2.rank.losses}};
+                        if(s1Total > s2Total){
+				s2Total = (s2Total / s1Total);
+				s1Total = 1;
+			}
+                        else{
+				s1Total = (s1Total / s2Total);
+				s2Total = 1
+			}
+                        makeBar(summoner1Win, "scale(-1, 1)", {{s1Wins}}, 'left');
+                        makeBar(summoner1Loss, "scale(-1, 1)", s1Total, 'left');
+                        makeBar(summoner2Win, "scale(1, 1)", {{s2Wins}}, 'right');
+                        makeBar(summoner2Loss, "scale(1, 1)", s2Total, 'right');
 		</script>
 	</body>
 

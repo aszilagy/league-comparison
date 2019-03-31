@@ -22,12 +22,17 @@ app.secret_key = b'(0a$li*&$p]/nap993-1z[1'
 def home():
     beta = ri.get_summoner_by_id('qFPc7K5DPBFildIkrWDXd4W0MfM9H8jW5S82nMfeDxGCrTe3')
     beta.rank = ri.get_summoner_rank('qFPc7K5DPBFildIkrWDXd4W0MfM9H8jW5S82nMfeDxGCrTe3')[0]
+    beta.gamesPlayed = beta.rank.wins + beta.rank.losses
 
     alpha = ri.get_summoner_by_id('zgzqdg9xeHXQ9zZpo4TeprEiQ8eRqWU0c7HVrdyR7FJEVno')
     alpha.rank = ri.get_summoner_rank('zgzqdg9xeHXQ9zZpo4TeprEiQ8eRqWU0c7HVrdyR7FJEVno')[0]
+    alpha.gamesPlayed = alpha.rank.wins + alpha.rank.losses
     print(alpha.__dict__, beta.__dict__)
 
-    return render_template('home.html', summoner1 = alpha, summoner2 = beta)
+    s1WinPercent = (alpha.rank.wins) / (alpha.rank.wins + alpha.rank.losses)
+    s2WinPercent = (beta.rank.wins) / (beta.rank.wins + beta.rank.losses)
+
+    return render_template('home.html', summoner1 = alpha, summoner2 = beta, s1Wins = s1WinPercent, s2Wins = s2WinPercent)
 
 @app.route('/tyler/', methods=['GET'])
 def login():
