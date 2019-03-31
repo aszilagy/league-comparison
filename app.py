@@ -19,6 +19,17 @@ app = Flask(__name__)
 app.secret_key = b'(0a$li*&$p]/nap993-1z[1'
 
 @app.route('/', methods=['GET'])
+def home():
+    beta = ri.get_summoner_by_id('qFPc7K5DPBFildIkrWDXd4W0MfM9H8jW5S82nMfeDxGCrTe3')
+    beta.rank = ri.get_summoner_rank('qFPc7K5DPBFildIkrWDXd4W0MfM9H8jW5S82nMfeDxGCrTe3')[0]
+
+    alpha = ri.get_summoner_by_id('zgzqdg9xeHXQ9zZpo4TeprEiQ8eRqWU0c7HVrdyR7FJEVno')
+    alpha.rank = ri.get_summoner_rank('zgzqdg9xeHXQ9zZpo4TeprEiQ8eRqWU0c7HVrdyR7FJEVno')[0]
+    print(alpha.__dict__, beta.__dict__)
+
+    return render_template('home.html', summoner1 = alpha, summoner2 = beta)
+
+@app.route('/tyler/', methods=['GET'])
 def login():
     beta = ri.get_summoner_by_id('qFPc7K5DPBFildIkrWDXd4W0MfM9H8jW5S82nMfeDxGCrTe3')
     beta.rank = ri.get_summoner_rank('qFPc7K5DPBFildIkrWDXd4W0MfM9H8jW5S82nMfeDxGCrTe3')[0]

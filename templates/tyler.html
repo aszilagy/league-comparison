@@ -5,6 +5,7 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="/static/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/static/css/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
 		<title>Tyler vs Moe</title>
 		<div class="navbar">
 			<a class="active" href="">Home</a>
@@ -24,19 +25,19 @@
 
 				<table>
 					<tr>
-						<th>Streamer</th>
-						<th>Summoner Name</th>
-						<th>Level</th>
-						<th>Rank</th>
-						<th>LP</th>
-						<th>Wins</th>
-						<th>Losses</th>
+						<th id="moe-header1">Streamer</th>
+						<th id="moe-header2">Summoner Name</th>
+						<th id="moe-header3">Level</th>
+						<th id="moe-header4">Rank</th>
+						<th id="moe-header5">LP</th>
+						<th id="moe-header6">Wins</th>
+						<th id="moe-header7">Losses</th>
 					</tr>
 
 
 					<tr id="row">
 						<tr>
-							<td id="moe-header"><b>Tyler</b></td>
+							<td style="background-color: gray"><b>Tyler</b></td>
 							<td>{{t1.name}}</td>
 							<td>{{t1.level}}</td>
 							{% if t1.rank != None %}
@@ -54,19 +55,19 @@
 				</table>
 				<table>
 					<tr>
-						<th>Streamer</th>
-						<th>Summoner Name</th>
-						<th>Level</th>
-						<th>Rank</th>
-						<th>LP</th>
-						<th>Wins</th>
-						<th>Losses</th>
+						<th id="moe-header1">Streamer</th>
+						<th id="moe-header2">Summoner Name</th>
+						<th id="moe-header3">Level</th>
+						<th id="moe-header4">Rank</th>
+						<th id="moe-header5">LP</th>
+						<th id="moe-header6">Wins</th>
+						<th id="moe-header7">Losses</th>
 					</tr>
 
 
 					<tr id="row">
 						<tr>
-							<td id="moe-header"><b>Moe</b></td>
+							<td style="background-color: gray"><b>Moe</b></td>
 							<td>{{moe.name}}</td>
 							<td>{{moe.level}}</td>
 							{% if moe.rank != None %}
@@ -86,6 +87,8 @@
 			</div>
 		</div>
 
+		<div id="containerPercentage"></div>
+
 
 		<div id="myModal" class="modal">
 			<div class="modal-content">
@@ -94,20 +97,38 @@
 			</div>
 		</div>
 
-		<script>
-			//Use this for settings changes
-			var modal = document.getElementById('myModal');
-var btn = document.getElementById('bt');
-var span = document.getElementsByClassName('close')[0];
+		<script src="/static/css/progressbar.min.js">
+			var bar = new ProgressBar.SemiCircle(containerPercentage, {
+				strokeWidth: 6,
+				color: '#FFEA82',
+				trailColor: '#eee',
+				trailWidth: 1,
+				easing: 'easeInOut',
+				duration: 1400,
+				svgStyle: null,
+				text: {
+					value: '',
+					alignToBottom: false
+				},
+				from: {color: '#FFEA82'},
+				to: {color: '#ED6A5A'},
+				// Set default step function for all animate calls
+				step: (state, bar) => {
+					bar.path.setAttribute('stroke', state.color);
+					var value = Math.round(bar.value() * 100);
+					if (value === 0) {
+						bar.setText('');
+					} else {
+						bar.setText(value);
+					}
 
-btn.onclick = function(){
-	modal.style.display = "block";
-}
+					bar.text.style.color = state.color;
+				}
+			});
+			bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+			bar.text.style.fontSize = '2rem';
 
-span.onclick = function(){
-	modal.style.display = "none";
-}
-
+			bar.animate(0.5);  // Number from 0.0 to 1.0
 		</script>
 
 	</body>

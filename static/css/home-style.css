@@ -1,0 +1,76 @@
+#submitButton{
+	position: absolute;
+	margin-left: 110%;
+}
+
+.centerLines p{
+	color: white;
+	margin-right: 5%;
+	float: right;
+	margin-bottom: 0px;
+
+}
+
+.centerLines{
+	position: relative;
+	float: right;
+	z-index: 2;
+
+}
+
+.centerLines div{
+	margin-right: 20px;
+	width: 400px;
+	height: 8px;
+	position: relative;
+	margin-bottom: 110px;
+}
+
+
+.topBar{
+	margin-left:5%;
+}
+
+.input-group.mb-3{
+	width: 300px;
+}
+
+
+body {
+	font-family: Arial;
+	color: white;
+}
+
+.split {
+	height: 100%;
+	width: 50%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	overflow-x: hidden;
+	padding-top: 20px;
+}
+
+.left {
+	left: 0;
+	background-color: #111;
+}
+
+.right {
+	right: 0;
+	background-color: #a20000
+}
+
+.centered {
+	position: relative;
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	width: 100%;
+}
+
+.centered img {
+	width: 100px;
+	border-radius: 50%;
+}

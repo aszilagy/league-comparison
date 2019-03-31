@@ -1,6 +1,31 @@
 /* Div CSS */
-#moe-header{
-	background-color: gray;
+#containerPercentage{
+	margin: 20px;
+	width: 200px;
+	height: 100px;
+
+}
+
+#moe-header1{
+	width: 2%;
+}
+#moe-header2{
+	width: 27%;
+}
+#moe-header3{
+	width: 5%;
+}
+#moe-header4{
+	width: 25%;
+}
+#moe-header5{
+	width: 7%;
+}
+#moe-header6{
+	width: 5%;
+}
+#moe-header7{
+	width: 5%;
 }
 
 th{
