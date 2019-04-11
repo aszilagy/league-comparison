@@ -1,5 +1,5 @@
-# RiotApp (v0.1)
-This app utilizes flask and Riot's API to create a tournament lobby in League of Legends and continually monitor data including player team, amount of games played, and player statistics. This is an early prototype and is utilizing the tournament-stub API, which emulates each of these events. 
+# League-Comparison (v0.1)
+This app utilizes flask and Riot's API to compare two League of Legends players and display a comparison of the player(s) statistics. This project is currently a work-in-progress and is in it's early stages.
 
 ## Takeaways
 * Flask is used to create a web interface. Understanding is required of how flask interacts with templates and HTTP Methods.
