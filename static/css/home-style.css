@@ -59,10 +59,11 @@ body {
 	font-family: Arial;
 	color: white;
 	background-color: #25154d;
+	width: 99%;
 }
 
 .split {
-	height: 100%;
+	height: 92%;
 	width: 50%;
 	position: fixed;
 	z-index: 1;

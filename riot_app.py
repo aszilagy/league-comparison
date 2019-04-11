@@ -16,15 +16,49 @@ summonerDict = {}
 def main():
     start = time.time()
     #ver = get_current_version() #XXX this adds 0.2 seconds, do it once a day to see if new version?
-    ver = '9.6.1'
+    ver = '9.7.1'
+    
+    #print(ver)
+    champDict = make_champion_id_list()
 
     alpha = get_summoner_by_name('lpp user50')
     print(alpha)
-    beta = get_summoner_by_name('t1 ok good yes')
-    print(beta)
+    mast = get_mastery_by_summonerid(alpha.summonerId)
+
+    print(champDict[str(mast[0]['championId'])])
+
+    #beta = get_summoner_by_name('t1 ok good yes')
+    #print(beta)
 
     end = time.time()
     print("MAIN TOOK %.2gs" % (end-start))
+
+def make_champion_id_list(filename=None, version='9.7.1'):
+    champ_dict = {}
+    listFileName = 'static/champion-list-' + version + '.json'
+    try:
+        with open(listFileName, encoding="utf8") as fo:
+            data = json.load(fo)
+            return data
+    except:
+        print("Making new CHAMP-LIST")
+        if filename is None:
+            filename='static/champion-'+version+'.json'
+        try:
+            with open(filename, encoding="utf8") as f:
+                data = json.load(f)
+                for key, vals in data['data'].items():
+                    print(vals['name'], vals['key'])
+                    champ_dict[vals['key']] = vals['name']
+
+                with open(listFileName, 'w+') as outf:
+                    json.dump(champ_dict, outf)
+
+        except:
+            read_static_champion()
+
+    return champ_dict
+
 
 def get_current_version():
     url = "https://ddragon.leagueoflegends.com/api/versions.json"
@@ -33,7 +67,7 @@ def get_current_version():
 
     return data[0]
 
-def get_champ_page(championName, filename=None, version='9.6.1'):
+def get_champ_page(championName, filename=None, version='9.7.1'):
     if filename is None:
         filename = 'static/champions/' + championName + '-' + version + '.json'
 
@@ -43,15 +77,18 @@ def get_champ_page(championName, filename=None, version='9.6.1'):
 
     except: #except FileNotFounderror
         url = "http://ddragon.leagueoflegends.com/cdn/" + version + "/data/en_US/champion/"+ championName + ".json"
-        with urllib.request.urlopen(url) as u:
-            data = json.loads(u.read().decode())
+        try:
+            with urllib.request.urlopen(url) as u:
+                data = json.loads(u.read().decode())
+        except:
+            return None
 
         with open(filename, 'w+') as outf:
             json.dump(data, outf)
 
     return data['data'][championName]
 
-def read_static_champion(championName, filename=None, version='9.6.1'):
+def read_static_champion(filename=None, version='9.7.1'):
     if filename is None:
         filename='static/champion-'+version+'.json'
     try:
@@ -60,13 +97,17 @@ def read_static_champion(championName, filename=None, version='9.6.1'):
 
     except: #except FileNotFoundError
         url = "http://ddragon.leagueoflegends.com/cdn/" + version + "/data/en_US/champion.json"
-        with urllib.request.urlopen(url) as u:
-            data = json.loads(u.read().decode())
+        try:
+            with urllib.request.urlopen(url) as u:
+                data = json.loads(u.read().decode())
+
+        except:
+            return None
 
         with open(filename, 'w+') as outf:
             json.dump(data, outf)
 
-    return data['data'][championName]
+    return data['data']
 
 def get_events(tourn):
     start = time.time()
@@ -204,7 +245,6 @@ def get_summoner_by_id(summoner_id):
         print("SUMMONER_INFO BAD")
         jprint(myReq)
 
-
 def get_summoner_by_name(summoner_name, justId = False):
     print("Getting summoner object by name: %s" % summoner_name)
     url = 'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+ summoner_name + '?api_key='+api_key
@@ -219,6 +259,17 @@ def get_summoner_by_name(summoner_name, justId = False):
     else:
         print("SUMMONER_INFO BAD")
         jprint(myReq)
+
+def get_mastery_by_summonerid(summoner_id):
+    url = 'https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'+ summoner_id + '?api_key='+api_key
+    myReq = requests.get(url, verify=True)
+    if(myReq.ok):
+        jList = json.loads(myReq.content.decode('utf-8'))
+        return jList
+    else:
+        print("MASTERY BAD")
+        jprint(myReq)
+
 
 def json_to_rank(jsonD):
     rankList = []

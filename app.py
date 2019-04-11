@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import riot_app as ri
 from passlib.hash import sha256_crypt as sha
 import configparser as cf
+from pprint import pprint
 
 config = cf.ConfigParser()
 config.read('config.ini')
@@ -25,10 +26,30 @@ def summon():
         s1 = ri.get_summoner_by_name(request.form['summoner1_input'])
         s2 = ri.get_summoner_by_name(request.form['summoner2_input'])
 
+        if 'champion_input' in request.form.to_dict():
+            champ = request.form['champion_input']
+
         if s1 is None or s2 is None:
+            #FIXME: This is kind of bad redirect (if you're using t1 and moe, just replace them with s1 and s2)
             return redirect(url_for('home'))
 
-        print(s1.summonerId)
+        if champ is not '':
+            champion_stats = ri.get_champ_page(champ)
+
+            if champion_stats is not None:
+                pprint(champion_stats)
+
+        else:
+            print("NO CHAMP")
+            mast_s1 = ri.get_mastery_by_summonerid(s1.summonerId)
+            mast_s2 = ri.get_mastery_by_summonerid(s2.summonerId)
+
+            best_champ_s1 = mast_s1[0]
+            best_champ_s2 = mast_s2[0]
+
+            print(best_champ_s1)
+            print(best_champ_s2)
+
         beta = ri.get_summoner_by_id(s2.summonerId)
 
         beta.rank = ri.get_summoner_rank(s2.summonerId)
