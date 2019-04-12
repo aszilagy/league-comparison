@@ -78,7 +78,7 @@ def summon():
             print(re.queueType)
             if re.queueType == "RANKED_SOLO_5x5":
                 beta.rank = re
-    beta.gamesPlayed = beta.rank.wins + beta.rank.losses
+
 
     alpha = ri.get_summoner_by_id(s1.summonerId)
     alpha.rank = ri.get_summoner_rank(s1.summonerId)
@@ -87,10 +87,16 @@ def summon():
             print(ra.queueType)
             if ra.queueType == "RANKED_SOLO_5x5":
                 alpha.rank = ra
-    alpha.gamesPlayed = alpha.rank.wins + alpha.rank.losses
 
-    s1WinPercent = (alpha.rank.wins) / (alpha.rank.wins + alpha.rank.losses)
-    s2WinPercent = (beta.rank.wins) / (beta.rank.wins + beta.rank.losses)
+    alpha.gamesPlayed, beta.gamesPlayed, s1WinPercent, s2WinPercent = None, None, None, None
+    if alpha.rank is not None:
+        alpha.gamesPlayed = alpha.rank.wins + alpha.rank.losses
+        s1WinPercent = (alpha.rank.wins) / (alpha.rank.wins + alpha.rank.losses)
+
+    if beta.rank is not None:
+        beta.gamesPlayed = beta.rank.wins + beta.rank.losses
+        s2WinPercent = (beta.rank.wins) / (beta.rank.wins + beta.rank.losses)
+
 
     return render_template('home.html', summoner1 = alpha, summoner2 = beta, s1Wins = s1WinPercent, s2Wins = s2WinPercent, s1Mast = mast_s1, s2Mast = mast_s2, best1Champ = champ1Name, best2Champ = champ2Name, search1Mast = search_mast_s1, search1Champ = search1Name, search2Champ = search2Name, search2Mast = search_mast_s2)
 
