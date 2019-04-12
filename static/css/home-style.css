@@ -2,6 +2,17 @@
 	max-width: 24%;
 
 }
+
+.semiCircleMastery{
+	width: 30%;
+	display: inline-block;
+}
+
+#masteryTitle{
+	margin-top: 15px;
+
+}
+
 #submitButton{
 	position: absolute;
 	margin-left: 110%;
@@ -9,39 +20,34 @@
 
 .centerLinesLeft p{
 	color: white;
-	margin-right: 5%;
-	float: right;
+	margin-left: 25%;
+	float: left;
 	margin-bottom: 0px;
 }
 
 .centerLinesRight p{
 	color: white;
-	margin-left: 5%;
-	float: left;
+	margin-right: 25%;
+	float: right;
 	margin-bottom: 0px;
 }
 
 .centerLinesRight{
-	position: relative;
-	float: left;
 	z-index: 2;
 
 }
 
 .centerLinesLeft{
-	position: relative;
-	float: right;
 	z-index: 2;
 
 }
 
 .centerLines div{
-	margin-right: 20px;
-	margin-left: 20px;
-	width: 400px;
+	margin-right: 25%;
+	margin-left: 25%;
 	height: 8px;
 	position: relative;
-	margin-bottom: 110px;
+	margin-bottom: 105px;
 }
 
 

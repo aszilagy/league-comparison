@@ -11,21 +11,21 @@
 
 	<body onload=loadPage()>
 		<div class="topBar">
-			<form action = "/summoners/" method = "POST">
-			<div class="form-row">
-				<div class="col">
-					<input name="summoner1_input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Summoner1">
+			<form action = "/" method = "POST">
+				<div class="form-row">
+					<div class="col">
+						<input name="summoner1_input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Summoner1">
+					</div>
+					<div class="col">
+						<input name="summoner2_input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Summoner2">
+					</div>
+					<div class="col">
+						<input name="champion_input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Champion">
+					</div>
+					<div class="col">
+						<button class="btn btn-primary" type = "submit" value = "submit">Submit</button>
+					</div>
 				</div>
-				<div class="col">
-					<input name="summoner2_input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Summoner2">
-				</div>
-				<div class="col">
-					<input name="champion_input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Champion">
-				</div>
-				<div class="col">
-					<button class="btn btn-primary" type = "submit" value = "submit">Submit</button>
-				</div>
-			</div>
 			</form>
 		</div>
 
@@ -36,13 +36,30 @@
 				<h2>{{summoner1.name}}</h2>
 				<p>{{summoner1.rank.tier}} {{summoner1.rank.rank}} - {{summoner1.rank.leaguePoints}} LP</p>
 			</div>
-			<div class="centerLines centerLinesLeft">
+			<div class="centered centerLines centerLinesLeft">
 				<p>Win Rate</p>
 				<div id="summoner1Win"></div>
 
 				<p>Games Played - {{summoner1.gamesPlayed}}</p>
 				<div id="summoner1Loss"></div>
 			</div>
+			<div class="centered">
+				<p id="masteryTitle"><b>Most Mastery</b></p>
+				<p>{{best1Champ}} - {{s1Mast[0]['championPoints']}} Mastery Points</p>
+				<div class="semiCircleMastery" id="s1Mastery">Win Rate %<br></div>
+				<div class="semiCircleMastery" id="s1MasteryPoint">Point %<br></div>
+			</div>
+			<div class="centered">
+				<p id="masteryTitle"><b>Champ Mastery</b></p>
+				{% if search1Mast %}
+				<p>{{search1Champ}} - {{search1Mast['championPoints']}} Mastery Points</p>
+				{% else %}
+				<p>No Mastery</p>
+				{% endif %}
+				<div class="semiCircleMastery" id="s1MasterySearch">Win Rate %<br></div>
+				<div class="semiCircleMastery" id="s1MasteryPointSearch">Point %<br></div>
+			</div>
+
 
 		</div>
 
@@ -52,23 +69,96 @@
 				<h2>{{summoner2.name}}</h2>
 				<p>{{summoner2.rank.tier}} {{summoner2.rank.rank}} - {{summoner2.rank.leaguePoints}} LP</p>
 			</div>
-			<div class="centerLines centerLinesRight">
+			<div class="centered centerLines centerLinesRight">
 				<p>Win Rate</p>
 				<div id="summoner2Win"></div>
 
 				<p>Games Played - {{summoner2.gamesPlayed}}</p>
 				<div id="summoner2Loss"></div>
+
 			</div>
+			<div class="centered">
+				<p id="masteryTitle"><b>Most Mastery</b></p>
+				<p>{{best2Champ}} - {{s2Mast[0]['championPoints']}} Mastery Points</p>
+				<div class="semiCircleMastery" id="s2Mastery">Win Rate %<br></div>
+				<div class="semiCircleMastery" id="s2MasteryPoint">Point %<br></div>
+			</div>
+			<div class="centered">
+				<p id="masteryTitle"><b>Champ Mastery</b></p>
+				{% if search2Mast %}
+				<p>{{search2Champ}} - {{search2Mast['championPoints']}} Mastery Points</p>
+				{% else %}
+				<p>No Mastery</p>
+				{% endif %}
+				<div class="semiCircleMastery" id="s2MasterySearch">Win Rate %<br></div>
+				<div class="semiCircleMastery" id="s2MasteryPointSearch">Point %<br></div>
+			</div>
+
 
 		</div>
 
 		<script src="/static/js/progressbar.js"></script>
 		<script src="/static/js/require.js">
-			alert('a');
 			var ProgressBar = require(['/static/js/progressbar.js'], function(){
 			});
 
 		</script>
+
+		<script>
+			function makeSemiCircle(containerName, transformPer, percentage, whichSide){
+				var bar = new ProgressBar.SemiCircle(containerName, {
+					strokeWidth: 6,
+					color: '#FFEA82',
+					trailColor: '#eee',
+					trailWidth: 1,
+					easing: 'easeInOut',
+					duration: 1400,
+					svgStyle: { width: '50%', height: '100%', transform: transformPer},
+					text: {
+						value: '',
+						alignToBottom: false
+					},
+					from: {color: '#FFEA82'},
+					to: {color: '#ED6A5A'},
+					// Set default step function for all animate calls
+					step: (state, bar) => {
+						bar.path.setAttribute('stroke', state.color);
+						var value = Math.round(bar.value() * 100);
+						bar.setText(value);
+						bar.text.style.color = state.color;
+					}
+				});
+				bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+				bar.text.style.fontSize = '1rem';
+
+				bar.animate(percentage);  // Number from 0.0 to 1.0
+
+			} 
+makeSemiCircle(s1Mastery, "scale(1, 1)", .63, 'right');
+makeSemiCircle(s1MasteryPoint, "scale(1, 1)", .53, 'right');
+
+{% if search1Mast %}
+makeSemiCircle(s1MasterySearch, "scale(1, 1)", .63, 'right');
+makeSemiCircle(s1MasteryPointSearch, "scale(1, 1)", .53, 'right');
+{% else %}
+makeSemiCircle(s1MasterySearch, "scale(1, 1)", 0, 'right');
+makeSemiCircle(s1MasteryPointSearch, "scale(1, 1)", 0, 'right');
+{% endif %}
+
+
+makeSemiCircle(s2Mastery, "scale(1, 1)", .54, 'right');
+makeSemiCircle(s2MasteryPoint, "scale(1, 1)", .54, 'right');
+
+{% if search2Mast %}
+makeSemiCircle(s2MasterySearch, "scale(1, 1)", .54, 'right');
+makeSemiCircle(s2MasteryPointSearch, "scale(1, 1)", .54, 'right');
+{% else %}
+makeSemiCircle(s2MasterySearch, "scale(1, 1)", 0, 'right');
+makeSemiCircle(s2MasteryPointSearch, "scale(1, 1)", 0, 'right');
+{% endif %}
+
+		</script>
+
 
 		<script>
 			function makeBar(containerName, transformPer, percentage, whichSide){
